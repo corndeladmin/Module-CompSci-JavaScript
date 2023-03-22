@@ -35,8 +35,13 @@ function main() {
 }
 
 function getEmptySlot(board) {
-    throw new Error("Fill Me In!");
-    return {row: 0, col: 0};
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col <= 9; col++) {
+            if (board[row][col] === 0) {
+                return {row, col};
+            }
+        }
+    }
 }
 
 function isValidInSlot(board, slot, guess) {
@@ -46,22 +51,50 @@ function isValidInSlot(board, slot, guess) {
 }
 
 function isValidInRow(board, guess, row) {
-    throw new Error("Fill Me In!");
+    for (let col = 0; col < 9; col++) {
+        if (board[row][col] === guess) {
+            return false;
+        }
+    }
+
     return true;
 }
 
-function isValidInColumn(board, slot, col) {
-    throw new Error("Fill Me In!");
+function isValidInColumn(board, guess, col) {
+    for (let row = 0; row < 9; row++) {
+        if (board[row][col] === guess) {
+            return false;
+        }
+    }
+
     return true;
 }
 
 function isValidInSquare(board, slot, guess) {
-    throw new Error("Fill Me In!");
+    const squareX = Math.floor(slot.row / 3);
+    const squareY = Math.floor(slot.col / 3);
+
+    for (let row = squareX * 3; row < (squareX + 1) * 3; row++) {
+        for (let col = squareY * 3; col < (squareY + 1) * 3; col++) {
+            if (board[row][col] === guess) {
+                return false;
+            }
+        }
+    }
+
     return true;
 }
 
 function updateBoard(board, slot, guess) {
-    throw new Error("Fill Me In!");
+    const newBoard = [];
+
+    for (let row = 0; row < 9; row++) {
+        newBoard[row] = [...board[row]];
+    }
+
+    newBoard[slot.row][slot.col] = guess;
+
+    return newBoard;
 }
 
 function printRowLine() {
